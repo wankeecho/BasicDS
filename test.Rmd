@@ -1,0 +1,58 @@
+---
+title: "Multiple Linear Regression in R"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+http://www.sthda.com
+
+An outcome variable (y) 
+Multiple distinct predictor variables (x)
+
+y = b0 + b1*x1 + b2*x2 + b3*x3
+where “b” the regression weights (or beta coefficients)
+
+/01/ Build and interpret a multiple linear regression model in R
+/02/ Check the overall quality of the model
+
+(1) Package
+```{r}
+library(tidyverse)
+```
+
+(2) sample data
+```{r}
+# install.packages("datarium")
+
+
+data("marketing", package = "datarium")
+head(marketing)
+```
+
+(3) Model
+```{r}
+model <- lm(sales ~ ., data = marketing)
+summary(model)
+```
+
+(4) Interpretation
+```{r}
+summary(model)$coefficient
+```
+Tooooo low p-value, and negative beta newspaper
+
+```{r}
+model <- lm(sales ~ youtube + facebook, data = marketing)
+summary(model)$coefficient
+confint(model)
+
+```
+
+(5) Accuracy
+
+ACCURACY = RSE/AVG
+
+```{r}
+sigma(model)/mean(marketing$sales)
+```
+
